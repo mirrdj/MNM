@@ -44,6 +44,31 @@ def get_feedback_test():
         print(f"GET Request failed: {e}")
     print("-" * 20)
 
+def query_feedback_test():
+    """
+    Tests the POST /query-feedback endpoint.
+    """
+    url = f"{BASE_URL}/query-feedback"
+    # Ensure there's some feedback data first for a meaningful query
+    # This assumes post_feedback_test() has run and added some data
+    payload = {
+        "question": "What are the common themes in the feedback?"
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    print(f"Sending POST request to {url} with payload: {payload}")
+    try:
+        response = requests.post(url, data=json.dumps(payload), headers=headers)
+        print(f"Query Response Status Code: {response.status_code}")
+        try:
+            print(f"Query Response JSON: {response.json()}")
+        except requests.exceptions.JSONDecodeError:
+            print(f"Query Response Text: {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"Query Request failed: {e}")
+    print("-" * 20)
+
 if __name__ == "__main__":
     print("Starting frontend spoof tests...")
     # Test POST endpoint
@@ -74,4 +99,9 @@ if __name__ == "__main__":
     
     print("\nGetting all feedback again...")
     get_feedback_test()
+
+    # Test the query feedback endpoint
+    print("\nTesting query feedback endpoint...")
+    query_feedback_test()
+
     print("Frontend spoof tests finished.")

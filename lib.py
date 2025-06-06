@@ -1,17 +1,28 @@
 import pandas as pd
-from transformers import pipeline
+
+# Attempt to import transformers and set a flag
+try:
+    from transformers import pipeline
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    TRANSFORMERS_AVAILABLE = False
+    pipeline = None  # Define pipeline as None if import fails
 
 def answer_question_from_csv(question: str, csv_file: str) -> str:
     """
     Answers a question based on feedback data from a CSV file.
+    Handles cases where the 'transformers' library might not be available.
 
     Parameters:
     - question (str): The question to be answered.
     - csv_file (str): Path to the CSV file containing feedback data.
 
     Returns:
-    - str: The answer extracted from the feedback data.
+    - str: The answer extracted from the feedback data, or an error message.
     """
+    if not TRANSFORMERS_AVAILABLE:
+        return "Error: The 'transformers' library is not installed or failed to import. LLM functionality is unavailable."
+
     # Load the feedback data
     try:
         df = pd.read_csv(csv_file)
@@ -39,13 +50,24 @@ def answer_question_from_csv(question: str, csv_file: str) -> str:
     # Prepend the system prompt to the user's question
     modified_question = f"{system_prompt}{question}"
 
-    # Initialize the question-answering pipeline with a more advanced pre-trained model
-    qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+    try:
+        # Initialize the question-answering pipeline
+        # This check is redundant if TRANSFORMERS_AVAILABLE is false, but good for clarity
+        if not pipeline: 
+            return "Error: Transformers pipeline could not be initialized (likely due to import failure)."
+        
+        qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
 
-    # Use the pipeline to answer the question based on the context
-    result = qa_pipeline(question=modified_question, context=context)
+        # Use the pipeline to answer the question based on the context
+        result = qa_pipeline(question=modified_question, context=context)
+        
+        if result and 'answer' in result and result['answer'] is not None:
+            return result['answer']
+        else:
+            return "Error: Could not extract an answer from the model. The context might be too short or irrelevant."
 
-    return result['answer']
+    except Exception as e:
+        return f"Error during question answering pipeline execution: {str(e)}"
 
 if __name__ == "__main__":
     # Example usage

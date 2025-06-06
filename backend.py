@@ -5,6 +5,8 @@ from typing import List
 import uuid
 from datetime import datetime
 import os
+# Import the function from lib.py
+from lib import answer_question_from_csv
 
 app = FastAPI()
 
@@ -17,6 +19,13 @@ class FeedbackBase(BaseModel):
 class FeedbackEntry(FeedbackBase):
     ID: str
     Timestamp: str
+
+# New Pydantic models for the query endpoint
+class QueryRequest(BaseModel):
+    question: str
+
+class QueryResponse(BaseModel):
+    answer: str
 
 @app.post("/feedback", response_model=FeedbackEntry)
 async def append_feedback(entry: FeedbackBase):
@@ -63,6 +72,21 @@ async def get_feedback():
         return df.to_dict(orient="records")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading CSV file: {str(e)}")
+
+@app.post("/query-feedback", response_model=QueryResponse)
+async def query_feedback_data(request: QueryRequest):
+    """
+    Answers a question based on the feedback data stored in the CSV file.
+    """
+    if not os.path.exists(CSV_FILE) or os.path.getsize(CSV_FILE) == 0:
+        raise HTTPException(status_code=404, detail="Feedback data not found or is empty.")
+    
+    try:
+        answer = answer_question_from_csv(question=request.question, csv_file=CSV_FILE)
+        return QueryResponse(answer=answer)
+    except Exception as e:
+        # Catching generic exception from lib or other issues
+        raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
