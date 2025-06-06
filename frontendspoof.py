@@ -69,6 +69,30 @@ def query_feedback_test():
         print(f"Query Request failed: {e}")
     print("-" * 20)
 
+def topic_frequency_test():
+    """
+    Tests the POST /topic-frequency endpoint.
+    """
+    url = f"{BASE_URL}/topic-frequency"
+    # Example topic; adjust as needed based on your feedback.csv content for meaningful results
+    payload = {
+        "topic": "meetings" 
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    print(f"Sending POST request to {url} with payload: {payload}")
+    try:
+        response = requests.post(url, data=json.dumps(payload), headers=headers)
+        print(f"Topic Frequency Response Status Code: {response.status_code}")
+        try:
+            print(f"Topic Frequency Response JSON: {response.json()}")
+        except requests.exceptions.JSONDecodeError:
+            print(f"Topic Frequency Response Text: {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"Topic Frequency Request failed: {e}")
+    print("-" * 20)
+
 if __name__ == "__main__":
     print("Starting frontend spoof tests...")
     # Test POST endpoint
@@ -103,5 +127,9 @@ if __name__ == "__main__":
     # Test the query feedback endpoint
     print("\nTesting query feedback endpoint...")
     query_feedback_test()
+
+    # Test the topic frequency endpoint
+    print("\nTesting topic frequency endpoint...")
+    topic_frequency_test()
 
     print("Frontend spoof tests finished.")
