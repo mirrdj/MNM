@@ -11,7 +11,10 @@ import tempfile # Added for temporary file handling
 
 app = FastAPI()
 
-CSV_FILE = "feedback.csv"
+# Determine the absolute path to the CSV file
+# This assumes backend.py and feedback.csv are in the same directory.
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) # Get the directory of the current script
+CSV_FILE = os.path.join(SCRIPT_DIR, "feedback.csv") # Construct absolute path to feedback.csv
 
 class FeedbackBase(BaseModel):
     Category: str
@@ -167,5 +170,6 @@ if __name__ == "__main__":
     import uvicorn
     # Note: The CSV file path is relative to where this script is run.
     # For robust deployment, consider absolute paths or environment variables.
-    print(f"Attempting to use CSV file: feedback.csv")
+    print(f"Attempting to use CSV file: {CSV_FILE}")
+    # Added reload=True to assist with development server restarts on code changes.
     uvicorn.run(app, host="0.0.0.0", port=8000)
