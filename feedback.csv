@@ -1,31 +1,56 @@
-Department,Employee ID,Feedback
-Marketing,E001,"Meetings often extend beyond the scheduled time, making it hard to plan other tasks."
-Sales,E002,"Cross-region meetings are hard to align, often falling outside of regular hours."
-Engineering,E003,"Our team meetings frequently run over, and there's an unspoken rule that leaving early is frowned upon."
-Human Resources,E004,"With teams spread globally, syncing calendars across time zones delays decisions."
-Finance,E005,"It's challenging to find available rooms since the RTO policy increased in-office presence."
-Customer Support,E006,"Team meetings often exceed the allotted time, impacting my ability to address customer queries promptly."
-IT,E007,"There’s often no room available for scheduled meetings due to overlapping bookings."
-Operations,E008,"Meetings lack time management, and stepping out early feels like breaking team cohesion."
-Legal,E009,"We lose time waiting for late joiners in cross-time-zone calls, delaying key conversations."
-Procurement,E010,"Long meetings disrupt my workflow, and the shortage of quiet rooms makes hybrid calls difficult."
-Administration,E011,"The RTO push has overloaded our meeting spaces—I'm often forced to take calls in open areas."
-Compliance,E012,"Coordinating meeting times across APAC and US teams leads to regular off-hours work."
-Quality Assurance,E013,"When meetings exceed their time, it disrupts my quality checks and scheduled tasks."
-Design,E014,"With limited quiet rooms, creative brainstorming sessions get derailed by background noise."
-Research,E015,"I hesitate to leave extended meetings, but overlapping time zones often lead to late evening calls."
-Marketing,E016,"Sometimes meetings feel like status symbols rather than productive sessions."
-Sales,E017,"It's difficult to maintain momentum with prospects when my afternoons are spent in meetings with other time zones."
-Engineering,E018,"Overrunning meetings reduce my focused development hours significantly."
-Human Resources,E019,"RTO has made it hard to book rooms for one-on-ones, affecting manager-employee connection."
-Finance,E020,"Meetings often begin late and end even later, causing scheduling conflicts."
-Customer Support,E021,"Global support syncs are too early for APAC and too late for North America."
-IT,E022,"Technical escalations get sidelined when there's no room to meet physically."
-Operations,E023,"I avoid scheduling deep work due to unpredictable meeting lengths and sync delays."
-Legal,E024,"Sometimes I feel like meetings are more about being seen than contributing."
-Procurement,E025,"It’s hard to speak up when meetings go long, especially with senior staff present."
-Administration,E026,"Time zones clash—our Europe team logs off before we’ve aligned on action items."
-Compliance,E027,"There's no accountability for meeting overruns, which sets a poor precedent."
-Quality Assurance,E028,"Excessive meeting durations compromise testing cycles and focus time."
-Design,E029,"We’re often forced to cancel creative reviews due to lack of available rooms."
-Research,E030,"Late-night calls with global peers leave little time for actual research during the day."
+ID,Timestamp,Category,Message
+6/6/2025, 1:51:54 PM,feedback,Meetings often run long—it would be great if we could stay more on track to respect everyone’s time
+6/6/2025, 1:52:14 PM,feedback,"Encouraging open sharing of all ideas, even early-stage ones, could help build more creativity"
+6/6/2025, 1:53:02 PM,feedback,Clarifying team responsibilities could really help streamline our work
+6/6/2025, 1:53:35 PM,suggestion,More structured onboarding would help new team members ramp up faster
+6/6/2025, 1:54:10 PM,feedback,It would be great to make performance-based recognition more visible and consistent
+6/6/2025, 1:54:45 PM,feedback,Creating a more supportive tone in meetings could boost morale and participation
+6/6/2025, 1:55:09 PM,suggestion,A clearer and more responsive HR process would build trust and confidence
+6/6/2025, 1:55:40 PM,feedback,Having a dedicated system for tech support could reduce downtime and improve productivity
+6/6/2025, 1:56:15 PM,feedback,A more stable long-term strategy would help us focus and plan more effectively
+6/6/2025, 1:56:45 PM,suggestion,More regular updates from leadership could keep everyone aligned
+6/6/2025, 1:57:13 PM,feedback,Creating safe spaces for sharing concerns could help improve trust
+6/6/2025, 1:57:42 PM,feedback,Prioritizing work more clearly could help reduce stress and improve focus
+6/6/2025, 1:58:10 PM,suggestion,It would be helpful to create channels for junior team members to share ideas
+6/6/2025, 1:58:35 PM,feedback,Allowing room for honest conversations can make the culture feel more authentic
+6/6/2025, 1:59:01 PM,feedback,Celebrating efficient work-life balance could encourage healthier habits
+6/6/2025, 1:59:24 PM,feedback,Attributing credit accurately can boost motivation and fairness
+6/6/2025, 1:59:50 PM,suggestion,A clearer process for making decisions would increase transparency
+6/6/2025, 2:00:13 PM,feedback,Balancing recognition across all contributors can boost team morale
+6/6/2025, 2:00:38 PM,feedback,Upgrading or maintaining our tools could really improve our workflow
+6/6/2025, 2:01:02 PM,feedback,Keeping deadlines consistent and clearly communicated would reduce confusion
+6/6/2025, 2:01:29 PM,feedback,Providing more autonomy can help reduce the need for micromanagement
+6/6/2025, 2:01:54 PM,feedback,Checking in on team well-being during meetings could be very helpful
+6/6/2025, 2:02:20 PM,suggestion,Having anonymous Q&A during all-hands could make more voices heard
+6/6/2025, 2:02:43 PM,feedback,A more consistent approach to work-life balance would strengthen team culture
+6/6/2025, 2:03:11 PM,feedback,It would be great to see more concrete action around DEI initiatives
+6/6/2025, 2:03:37 PM,feedback,More objective and transparent performance reviews could boost confidence in the process
+6/6/2025, 2:04:01 PM,suggestion,Sharing exit interview themes (anonymously) could help us improve
+6/6/2025, 2:04:26 PM,feedback,It would help if leadership shared more reflections on project outcomes
+6/6/2025, 2:04:49 PM,feedback,More frequent 1:1s would help maintain alignment and trust
+6/6/2025, 2:05:15 PM,suggestion,Hands-on mentorship would complement our learning resources nicely
+6/6/2025, 2:05:43 PM,feedback,Clarifying expectations around after-hours availability could support better balance
+6/6/2025, 2:06:08 PM,feedback,Empowering middle managers with more tools and clarity could improve their impact
+6/6/2025, 2:06:30 PM,suggestion,Holding all levels to consistent standards builds a stronger culture
+6/6/2025, 2:06:57 PM,feedback,Conducting stay interviews could help us learn from those who leave
+6/6/2025, 2:07:21 PM,feedback,Creating psychological safety in retros could unlock more helpful insights
+6/6/2025, 2:07:47 PM,suggestion,Including mental health days in our benefits could show support
+6/6/2025, 2:08:11 PM,feedback,Better alignment before projects kick off could reduce rework
+6/6/2025, 2:08:35 PM,feedback,More visibility into high-level plans would help teams stay on course
+6/6/2025, 2:09:01 PM,suggestion,Trusting teams with more autonomy could increase innovation
+6/6/2025, 2:09:25 PM,feedback,Protecting open communication can help people feel safer to share
+6/6/2025, 2:09:49 PM,feedback,Approaching tough announcements with more empathy could make a big difference
+6/6/2025, 2:10:13 PM,feedback,Making team events more inclusive and fun would improve engagement
+6/6/2025, 2:10:35 PM,feedback,Bringing more decision-making into the open could strengthen trust
+6/6/2025, 2:11:01 PM,suggestion,Giving people the option to disconnect on weekends would support better balance
+6/6/2025, 2:11:26 PM,feedback,Backing up wellness messaging with action can really boost credibility
+6/6/2025, 2:11:48 PM,feedback,Encouraging quieter voices can lead to more balanced discussions
+6/6/2025, 2:12:15 PM,feedback,Reinforcing our values through daily actions would strengthen culture
+6/6/2025, 2:12:41 PM,suggestion,Rotating facilitation roles could help include more perspectives
+6/6/2025, 2:13:03 PM,feedback,Clarifying approval processes would make collaboration smoother
+c05bec5a-8ae1-44c8-9987-183395cd3952,"2025/06/06, 03:21:55 PM",General,This is a test feedback message.
+2b864a02-ef21-4b3d-b4fd-bb2ee327720f,"2025/06/06, 03:21:55 PM",Bug Report,Found a minor issue on the login page.
+fb12d5cf-4cb3-4c6a-a1e0-27cf910ecdf1,"2025/06/06, 03:22:09 PM",General,This is a test feedback message.
+71b3fbd8-156f-41bf-bf61-d0135f8bdaf4,"2025/06/06, 03:22:09 PM",Bug Report,Found a minor issue on the login page.
+24aa98a0-9fbc-4467-be3d-b7ce5d6845c4,"2025/06/06, 03:22:10 PM",General,This is a test feedback message.
+7cf48f48-1792-4c6a-9978-a33f650ade3e,"2025/06/06, 03:22:10 PM",Bug Report,Found a minor issue on the login page.
