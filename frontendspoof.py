@@ -1,8 +1,7 @@
 import requests
 import json
 
-BASE_URL = "http://localhost:8000"
-
+BASE_URL = "http://localhost:8002"
 def post_feedback_test():
     """
     Tests the POST /feedback endpoint.

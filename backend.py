@@ -105,6 +105,7 @@ async def get_topic_frequency(request: TopicRequest):
     """
     Classifies each piece of feedback based on a given topic and returns
     the raw count and percentage of feedback related to that topic.
+    LLM is asked to return 'yes' or 'no'.
     """
     if not os.path.exists(CSV_FILE) or os.path.getsize(CSV_FILE) == 0:
         return TopicFrequencyResponse(raw_count=0, percentage=0.0)
@@ -132,19 +133,21 @@ async def get_topic_frequency(request: TopicRequest):
                     temp_df.to_csv(tmp_file, index=False)
                     temp_file_path = tmp_file.name
                 
-                # Ensure the file is flushed and closed before answer_question_from_csv reads it
-                # The with statement handles closing, flushing might depend on OS/Python version buffering.
-                # If issues arise, explicit flush (tmp_file.flush()) before closing might be needed.
-
-                question = f"Is the following feedback message: '{message_content}' primarily about the topic '{request.topic}'? Answer only with 'yes' or 'no'."
+                question = (
+                    f"Is the following feedback message: '{message_content}' "
+                    f"primarily about the topic '{request.topic}'? Answer only with 'yes' or 'no'."
+                )
                 
-                # Call the imported function for classification
-                # This assumes answer_question_from_csv can process a CSV with one entry
-                # and answer the specific yes/no question.
                 answer_text = answer_question_from_csv(question=question, csv_file=temp_file_path)
                 
+                print(f"DEBUG: Message ID {row.get('ID', 'N/A')}, Topic: '{request.topic}', Message: '{message_content[:100]}...', LLM Question: '{question}', LLM Raw Answer: '{answer_text}'")
+
                 if answer_text and answer_text.strip().lower() == "yes":
                     topic_related_count += 1
+                    print(f"DEBUG: Classified as YES. Current count: {topic_related_count}")
+                else:
+                    # This will also catch 'no' or any other unexpected response.
+                    print(f"DEBUG: Classified as NO or unexpected response: '{answer_text}'.")
             
             except Exception as e:
                 # Log error or handle as needed, e.g., skip this message or raise
@@ -172,4 +175,4 @@ if __name__ == "__main__":
     # For robust deployment, consider absolute paths or environment variables.
     print(f"Attempting to use CSV file: {CSV_FILE}")
     # Added reload=True to assist with development server restarts on code changes.
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8002)

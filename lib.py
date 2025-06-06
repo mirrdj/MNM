@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 # Attempt to import transformers and set a flag
 try:
@@ -68,6 +69,80 @@ def answer_question_from_csv(question: str, csv_file: str) -> str:
 
     except Exception as e:
         return f"Error during question answering pipeline execution: {str(e)}"
+
+def analyze_topic_json(topic: str, message: str) -> dict:
+    """
+    Analyzes if a message is about a specific topic using the QA pipeline,
+    and returns a structured JSON response.
+    
+    Parameters:
+    - topic (str): The topic to check for in the message.
+    - message (str): The feedback message content to analyze.
+    
+    Returns:
+    - dict: A dictionary with 'is_related' (bool) and 'explanation' (str) keys.
+    """
+    if not TRANSFORMERS_AVAILABLE:
+        return {"is_related": False, "explanation": "Error: Transformers library not available"}
+        
+    try:
+        if not pipeline:
+            return {"is_related": False, "explanation": "Error: Pipeline initialization failed"}
+            
+        qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+        
+        # Create a structured prompt that guides the model to return JSON-like answers
+        system_prompt = ("System: You are an AI assistant that analyzes if feedback is related to a specific topic. "
+                         "Respond in a very specific format as follows: "
+                         "{\"is_related\": true/false, \"explanation\": \"brief explanation of your reasoning\"}")
+        
+        question = f"{system_prompt}\n\nIs this feedback about '{topic}'? Message: '{message}'"
+        
+        # Create a context that contains the instructions for structured output
+        context = (f"The feedback message is: {message}\n\n"
+                  f"When analyzing if it's related to '{topic}', always respond with a "
+                  f"JSON structure with 'is_related' (boolean) and 'explanation' (string) fields.")
+                  
+        result = qa_pipeline(question=question, context=context)
+        answer = result.get('answer', '')
+        
+        # Try to parse the answer as JSON
+        try:
+            # Look for JSON-like patterns in the answer
+            if '{' in answer and '}' in answer:
+                json_str = answer[answer.find('{'):answer.rfind('}')+1]
+                parsed_result = json.loads(json_str)
+                
+                # Ensure required fields exist
+                if not isinstance(parsed_result, dict):
+                    parsed_result = {}
+                    
+                # Set default values if keys are missing
+                return {
+                    "is_related": parsed_result.get("is_related", False),
+                    "explanation": parsed_result.get("explanation", "No explanation provided")
+                }
+            else:
+                # If no JSON structure found, make a best effort to determine relation
+                is_related = "yes" in answer.lower() or "true" in answer.lower() or "related" in answer.lower()
+                return {
+                    "is_related": is_related,
+                    "explanation": answer.strip()
+                }
+                
+        except json.JSONDecodeError:
+            # If we can't parse JSON, fall back to simple pattern matching
+            is_related = "yes" in answer.lower() or "true" in answer.lower() or "related" in answer.lower()
+            return {
+                "is_related": is_related, 
+                "explanation": answer.strip()
+            }
+            
+    except Exception as e:
+        return {
+            "is_related": False,
+            "explanation": f"Error during topic analysis: {str(e)}"
+        }
 
 if __name__ == "__main__":
     # Example usage
